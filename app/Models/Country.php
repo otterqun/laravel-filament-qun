@@ -11,7 +11,7 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $fiilable = [
+    protected $fillable = [
 
         'country_code',
         'name',
