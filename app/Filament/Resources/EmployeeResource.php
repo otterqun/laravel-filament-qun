@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
+use App\Filament\Resources\EmployeeResource\Widgets\EmployeeStatsOverview;
 use App\Models\Employee;
 use Filament\Forms;
 //
@@ -124,6 +125,13 @@ class EmployeeResource extends Resource
         return [
                 //
             ];
+    }
+
+    public static function getWidgets(): array
+    {
+        return [
+            EmployeeStatsOverview::class,
+        ];
     }
 
     public static function getPages(): array
