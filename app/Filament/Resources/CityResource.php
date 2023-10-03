@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CityResource\Pages;
 use App\Filament\Resources\CityResource\RelationManagers;
+use App\Filament\Resources\CityResource\RelationManagers\EmployeesRelationManager;
 use App\Models\City;
 use Filament\Forms;
 //
@@ -23,7 +24,9 @@ class CityResource extends Resource
 {
     protected static ?string $model = City::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-building-office';
+    protected static ?string $navigationGroup = 'System Management';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
@@ -37,9 +40,12 @@ class CityResource extends Resource
                             Select::make('state_id')
                                                 //function relationship      //nama coloumn
                                 ->relationship(name: 'state', titleAttribute: 'name')
+                                ->required()
                                 ->searchable()
                                 ->preload(),
-                            TextInput::make('name'),
+                            TextInput::make('name')
+                                ->required()
+                                ->maxLength(255),
                         ]),
                     // Tabs\Tab::make('Tab 2')
                     //     ->schema([
@@ -82,7 +88,7 @@ class CityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            EmployeesRelationManager::class,
         ];
     }
 

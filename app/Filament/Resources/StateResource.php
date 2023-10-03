@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\CountryResource\RelationManagers\EmployeesRelationManager;
 use App\Filament\Resources\StateResource\Pages;
 use App\Filament\Resources\StateResource\RelationManagers;
+use App\Filament\Resources\StateResource\RelationManagers\CitiesRelationManager;
 use App\Models\State;
 use Filament\Forms;
 //
@@ -24,6 +26,7 @@ class StateResource extends Resource
     protected static ?string $model = State::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'System Management';
 
     public static function form(Form $form): Form
     {
@@ -37,18 +40,11 @@ class StateResource extends Resource
                             Select::make('country_id')
                                                 //function relationship      //nama coloumn
                                 ->relationship(name: 'country', titleAttribute: 'name')
+                                ->required()
                                 ->searchable()
                                 ->preload(),
-                            TextInput::make('name'),
+                            TextInput::make('name')->required()->maxLength(255),
                         ]),
-                    // Tabs\Tab::make('Tab 2')
-                    //     ->schema([
-                    //         // ...
-                    //     ]),
-                    // Tabs\Tab::make('Tab 3')
-                    //     ->schema([
-                    //         // ...
-                    //     ]),
                     ])
 
             ]);
@@ -80,7 +76,8 @@ class StateResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            EmployeesRelationManager::class,
+            CitiesRelationManager::class,
         ];
     }
 

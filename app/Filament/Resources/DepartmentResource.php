@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Filament\Resources\CityResource\RelationManagers\EmployeesRelationManager;
 use App\Filament\Resources\DepartmentResource\Pages;
 use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
@@ -23,7 +24,8 @@ class DepartmentResource extends Resource
 {
     protected static ?string $model = Department::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+    protected static ?string $navigationGroup = 'System Management';
 
     public static function form(Form $form): Form
     {
@@ -34,16 +36,10 @@ class DepartmentResource extends Resource
                 ->tabs([
                     Tabs\Tab::make('Department')
                         ->schema([
-                            TextInput::make('name'),
+                            TextInput::make('name')
+                            ->required()
+                            ->maxLength(255),
                         ]),
-                    // Tabs\Tab::make('Tab 2')
-                    //     ->schema([
-                    //         // ...
-                    //     ]),
-                    // Tabs\Tab::make('Tab 3')
-                    //     ->schema([
-                    //         // ...
-                    //     ]),
                     ])
 
             ]);
@@ -73,7 +69,7 @@ class DepartmentResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            EmployeesRelationManager::class,
         ];
     }
 
