@@ -16,8 +16,8 @@ class EmployeeStatsOverview extends BaseWidget
         $ind = Country::where('country_code','IND')->withCount('employees')->first();
         return [
             Stat::make('All Employee', Employee::all()->count()),
-            Stat::make($mas->name.' Employees',$mas->employees_count),
-            Stat::make($ind->name.' Employees',$ind->employees_count),
+            Stat::make('Malaysia Employees',$mas ? $mas->employees_count : 0),
+            Stat::make('Indonesia Employees',$ind ? $ind->employees_count : 0),
         ];
     }
 }

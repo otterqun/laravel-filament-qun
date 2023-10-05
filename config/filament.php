@@ -56,4 +56,11 @@ return [
     //     ],
     // ],
 
+    'layout' => [
+        'notification' => [
+            'vertical_alignment' => 'top',
+            'alignment' => 'center'
+        ]
+    ]
+
 ];
